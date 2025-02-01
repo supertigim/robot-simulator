@@ -1,12 +1,10 @@
-**ARCHIVED: Please note that this repository is not currently maintained.**
-
-# Sobot Rimulator
+# Robot Simulator
 
 A robot programming tool.
 
 ![Screenshot](images/screenshot.png)
 
-Sobot Rimulator is inspired by [Sim.I.Am](http://jpdelacroix.com/software/simiam.html), by [JP de la Croix](http://jpdelacroix.com/). The software simulates a [Khepera III](https://ftp.k-team.com/KheperaIII/UserManual/Kh3.Robot.UserManual.pdf) robot navigating to a goal in an environment of obstacles. The control system packaged with this software is based on the principles of [hybrid automata](https://en.wikipedia.org/wiki/Hybrid_automaton), as taught by [Magnus Egerstedt](https://magnus.ece.gatech.edu/). An in-depth discussion of these principles is given in [this article](https://www.toptal.com/robotics/programming-a-robot-an-introductory-tutorial) on the Toptal Engineering Blog.
+Robot Simulator(formerly, Sobot Rimulator) is inspired by [Sim.I.Am](http://jpdelacroix.com/software/simiam.html), by [JP de la Croix](http://jpdelacroix.com/). The software simulates a [Khepera III](https://ftp.k-team.com/KheperaIII/UserManual/Kh3.Robot.UserManual.pdf) robot navigating to a goal in an environment of obstacles. The control system packaged with this software is based on the principles of [hybrid automata](https://en.wikipedia.org/wiki/Hybrid_automaton), as taught by [Magnus Egerstedt](https://magnus.ece.gatech.edu/). An in-depth discussion of these principles is given in [this article](https://www.toptal.com/robotics/programming-a-robot-an-introductory-tutorial) on the Toptal Engineering Blog.
 
 ## Table of Contents
 
@@ -18,18 +16,59 @@ Sobot Rimulator is inspired by [Sim.I.Am](http://jpdelacroix.com/software/simiam
 
 ### Requirements
 
-Sobot Rimulator requires Python 3. Its main dependencies are [Gtk 3](https://www.gtk.org/) and [PyGObject 3](https://pygobject.readthedocs.io/en/latest/index.html), which are used for the UI.
+Robot Simulator requires Python 3.13 or higher. The project uses Poetry for dependency management and pyenv for Python version management.
 
-If you are using `pip` you will need to add Gtk3 to your environment separately since it is not a Python library. If you are using `conda` you can create a new environment with everything you need like this:
+#### Setting up the environment
 
+1. Install pyenv (if not already installed):
+```bash
+# On macOS/Linux
+curl https://pyenv.run | bash
+
+# On Windows (using PowerShell)
+Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"
 ```
-conda create -n sobot-rimulator -c conda-forge python=3 gtk3 pygobject
+
+2. Install Python 3.13.0 using pyenv:
+```bash
+pyenv install 3.13.0
+pyenv local 3.13.0
 ```
 
-Then to switch to the new environment:
+3. Install Poetry (if not already installed):
+```bash
+# On macOS/Linux/WSL
+curl -sSL https://install.python-poetry.org | python3 -
 
+# On Windows (PowerShell)
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
 ```
-conda activate sobot-rimulator
+
+4. Install system dependencies for GTK:
+
+On Ubuntu/Debian:
+```bash
+sudo apt-get install python3-gi python3-gi-cairo gir1.2-gtk-3.0
+```
+
+On Fedora:
+```bash
+sudo dnf install python3-gobject gtk3
+```
+
+On macOS:
+```bash
+brew install pygobject3 gtk+3
+```
+
+5. Install project dependencies using Poetry:
+```bash
+poetry install
+```
+
+6. Activate the poetry environment:
+```bash
+poetry shell
 ```
 
 ### Running the Simulator
@@ -37,7 +76,7 @@ conda activate sobot-rimulator
 From the command line, navigate to the project's root directory. Then type:
 
 ```
-python simulator.py
+python ./src/simulator.py
 ```
 
 ## User Interface
@@ -134,7 +173,7 @@ The `Supervisor` (`supervisor.py`) is the brains of the robot. It contains a `Ro
 
 ### Supervisor State Machine
 
-The `SupervisorStateMachine` (`supervisor_state_machine.py`) manages the robot's control state. The version distributed with Sobot Rimulator supports the following control states (defined in `control_state.py`):
+The `SupervisorStateMachine` (`supervisor_state_machine.py`) manages the robot's control state. The version distributed with Robot Simulator supports the following control states (defined in `control_state.py`):
 
   - `ControlState.AT_GOAL`
   - `ControlState.GO_TO_GOAL`
