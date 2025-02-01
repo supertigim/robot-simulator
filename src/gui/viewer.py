@@ -1,6 +1,8 @@
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
+
 gi.require_version("Gdk", "3.0")
 from gi.repository import Gdk
 from gui.frame import Frame
@@ -39,7 +41,7 @@ class Viewer:
 
         # initialize the window
         self.window = Gtk.Window()
-        self.window.set_title("Sobot Rimulator")
+        self.window.set_title("Robot Simulator")
         self.window.set_resizable(False)
         self.window.connect("delete_event", self.on_delete)
 
